@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cookie;
 
 class TransaksiController extends Controller
 {
@@ -28,10 +30,33 @@ class TransaksiController extends Controller
                 'email' => 'budi.pra@example.com',
                 'phone' => '08111222333',
             ),
+            "item_details"=> [
+                [
+                  "id"=> "a01",
+                  "price"=> 7000,
+                  "quantity"=> 1,
+                  "name"=> "Apple"
+                ],
+                [
+                  "id"=> "b02",
+                  "price"=> 3000,
+                  "quantity"=> 2,
+                  "name"=> "Orange"
+                ]
+              ],
         );
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-        return view('welcome', compact('snapToken'));
+        return $snapToken;
     }
+
+    // public function index(Request $request)
+    // {
+    // if(!empty($request->cookie('name'))){
+    //     return $request->cookie('name');
+
+    // }
+    // return 'false';
+    // }
 }

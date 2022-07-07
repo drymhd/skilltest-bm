@@ -10,6 +10,24 @@ const routes = [{
             title: 'home'
         }
     },
+    {
+        name: 'keranjang',
+        path: '/keranjang',
+        component: () =>
+            import ( /* webpackChunkName: "main" */ './pages/keranjang/Index.vue'),
+        meta: {
+            title: 'keranjang'
+        }
+    },
+    {
+        name: 'transaksi',
+        path: '/transaksi',
+        component: () =>
+            import ( /* webpackChunkName: "main" */ './pages/transaksi/Index.vue'),
+        meta: {
+            title: 'transaksi'
+        }
+    },
 
 ];
 

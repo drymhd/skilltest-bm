@@ -26,10 +26,13 @@
     "dependencies": {
         "autoprefixer": "10.4.5",
         "jquery": "^3.6.0",
+        "owl.carousel": "^2.3.4",
         "popper.js": "^1.16.1",
         "select2": "^4.1.0-rc.0",
         "sweetalert2": "^11.4.20",
         "toastr": "^2.1.4",
+        "vue-infinite-scroll": "^2.0.2",
+        "vue-owl-carousel": "^2.0.3",
         "vue-router": "^3.4.9"
     }
 }
