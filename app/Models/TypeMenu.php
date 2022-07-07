@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TypeMenu extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nama_type'];
+
+    public function Menu()
+    {
+        return $this->hasMany(Menu::class, 'type_id', 'id');
+    }    
 }

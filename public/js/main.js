@@ -457,331 +457,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -790,25 +465,79 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      transaksi: null
+      transaksi: null,
+      typeMenu: [],
+      filter: {
+        sort: 1,
+        type: []
+      },
+      data_menu: []
     };
   },
   methods: {
-    owl: function owl() {//         $(document).ready(function(){
-      //   $('.owl-carousel').owlCarousel();
-      // });
+    owl: function owl() {
+      $("a.open_filters").on("click", function () {
+        $(".filter_col").toggleClass("show");
+        $(".layer").toggleClass("layer-is-visible");
+      });
+      var $headingFilters = $(".filter_type h4 a");
+      $headingFilters.on("click", function () {
+        $(this).toggleClass("opened");
+      });
+      $headingFilters.on("click", function () {
+        $(this).toggleClass("closed");
+      });
+    },
+    getTypeMenu: function getTypeMenu() {
+      var app = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("home/getTypeMenu").then(function (res) {
+        app.typeMenu = res.data.data;
+      })["catch"](function (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Sesuatu error Terjadi!"
+        });
+      });
+    },
+    typemenu: function typemenu(id) {
+      var app = this;
+      var index = app.filter.type.indexOf(id);
+
+      if (index !== -1) {
+        app.filter.type.splice(index, 1);
+      } else {
+        app.filter.type.push(id);
+      }
+
+      console.log(app.filter.type);
+    },
+    index: function index() {
+      var app = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("home/index", {
+        data: app.filter
+      }).then(function (res) {
+        app.data_menu = res.data.data;
+      })["catch"](function (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Sesuatu error Terjadi!"
+        });
+      });
     }
   },
   mounted: function mounted() {
-    var app = this; //    var payButton = document.getElementById('pay-button');
+    var app = this;
+    app.owl();
+    app.getTypeMenu();
+    app.index(); //    var payButton = document.getElementById('pay-button');
     // payButton.addEventListener('click', function () {
     //   // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
     //   window.snap.pay(app.transaksi);
     //   console.log(app.transaksi);
     //   // customer will be redirected after completing payment pop-up
     // });
-
-    app.owl();
   }
 });
 
@@ -831,7 +560,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.owl-theme .owl-nav [class*='owl-']{\r\n  border-radius: 50%;\n}\n.container {\r\n    position: relative;\n}\n.container .card {\r\n    position: relative;\r\n    width: 320px;\r\n    height: 450px;\r\n    margin: auto;\r\n    background: #052e00;\r\n    border-radius: 20px;\r\n    overflow: hidden;\n}\n.container .card:before {\r\n    content: \"\";\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: #68c444;\r\n    -webkit-clip-path: circle(150px at 80% 20%);\r\n            clip-path: circle(150px at 80% 20%);\r\n    transition: 0.5s ease-in-out;\n}\n.container .card:hover:before {\r\n    -webkit-clip-path: circle(300px at 80% -20%);\r\n            clip-path: circle(300px at 80% -20%);\n}\n.container .card:after {\r\n    content: \"CfMlt\";\r\n    position: absolute;\r\n    top: 30%;\r\n    left: -20%;\r\n    font-size: 12em;\r\n    font-weight: 800;\r\n    font-style: italic;\r\n    color: rgba(255, 255, 255, 0.04);\n}\n.container .card .imgBx {\r\n    position: absolute;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n    z-index: 1000;\r\n    width: 100%;\r\n    height: 100%;\r\n    transition: .5s;\n}\n.container .card:hover .imgBx {\r\n    top: 0%;\r\n    transform: translateY(-25%);\r\n    /* bug  */\n}\n.container .card .imgBx img {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%) rotate(20deg);\r\n    width: 270px;\n}\n.container .card .contentBx {\r\n    position: absolute;\r\n    bottom: 0;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    transition: 1s;\r\n    z-index: 90;\n}\n.container .card:hover .contentBx {\r\n    height: 210px;\n}\n.container .card .contentBx h2 {\r\n    position: relative;\r\n    font-weight: 600;\r\n    letter-spacing: 1px;\r\n    color: #fff;\n}\n.container .card .contentBx .size,\r\n.container .card .contentBx .color {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    padding: 8px 20px;\r\n    transition: .5s;\r\n    opacity: 0;\r\n    visibility: hidden;\n}\n.container .card:hover .contentBx .size {\r\n    opacity: 1;\r\n    visibility: visible;\r\n    transition-delay: .5s;\n}\n.container .card:hover .contentBx .color {\r\n    opacity: 1;\r\n    visibility: visible;\r\n    transition-delay: .6s;\n}\n.container .card .contentBx .size h3,\r\n.container .card .contentBx .color h3 {\r\n    color: white;\r\n    font-weight: 300;\r\n    font-size: 14px;\r\n    text-transform: uppercase;\r\n    letter-spacing: 2px;\r\n    margin-right: 10px;\n}\n.container .card .contentBx .size span {\r\n    width: 26px;\r\n    height: 26px;\r\n    text-align: center;\r\n    line-height: 26px;\r\n    font-size: 14px;\r\n    display: inline-block;\r\n    color: #111;\r\n    background: #fff;\r\n    margin: 0 5px;\r\n    transition: .5s;\r\n    color: #111;\r\n    border-radius: 4px;\r\n    cursor: pointer;\n}\n.container .card .contentBx .size span:hover {  /* other bug */\r\n    background: #B90000;\n}\n.container .card .contentBx .color span {\r\n    width: 20px;\r\n    height: 20px;\r\n    background: #ff0;\r\n    border-radius: 50%;\r\n    margin: 0 5px;\r\n    cursor: pointer;\n}\n.container .card .contentBx .color span:nth-child(2) {\r\n     background: #1BBFE9;\n}\n.container .card .contentBx .color span:nth-child(3) {\r\n     background: #1B2FE9;\n}\n.container .card .contentBx .color span:nth-child(4) {\r\n     background: #080481;\n}\n.container .card .contentBx a {\r\n    display: inline-block;\r\n    padding: 10px 20px;\r\n    background: #fff;\r\n    border-radius: 4px;\r\n    margin-top: 10px;\r\n    text-decoration: none;\r\n    font-weight: 600;\r\n    color: #111;\r\n    opacity: 0;\r\n    transform: translateY(50px);\r\n    transition: .5s;\n}\n.container .card:hover .contentBx a {\r\n    opacity: 1;\r\n    transform: translateY(0px);\r\n    transition-delay: .7s;\n} \r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.owl-theme .owl-nav [class*=\"owl-\"] {\r\n  border-radius: 50%;\n}\n.container {\r\n  position: relative;\n}\n.container .card {\r\n  position: relative;\r\n  width: 320px;\r\n  height: 450px;\r\n  margin: auto;\r\n  background: #052e00;\r\n  border-radius: 20px;\r\n  overflow: hidden;\n}\n.container .card:before {\r\n  content: \"\";\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: #68c444;\r\n  -webkit-clip-path: circle(150px at 80% 20%);\r\n          clip-path: circle(150px at 80% 20%);\r\n  transition: 0.5s ease-in-out;\n}\n.container .card:hover:before {\r\n  -webkit-clip-path: circle(300px at 80% -20%);\r\n          clip-path: circle(300px at 80% -20%);\n}\n.container .card:after {\r\n  content: \"CfMlt\";\r\n  position: absolute;\r\n  top: 30%;\r\n  left: -20%;\r\n  font-size: 12em;\r\n  font-weight: 800;\r\n  font-style: italic;\r\n  color: rgba(255, 255, 255, 0.04);\n}\n.container .card .imgBx {\r\n  position: absolute;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  z-index: 1000;\r\n  width: 100%;\r\n  height: 100%;\r\n  transition: 0.5s;\n}\n.container .card:hover .imgBx {\r\n  top: 0%;\r\n  transform: translateY(-25%);\r\n  /* bug  */\n}\n.container .card .imgBx img {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%) rotate(20deg);\r\n  width: 270px;\n}\n.container .card .contentBx {\r\n  position: absolute;\r\n  bottom: 0;\r\n  width: 100%;\r\n  height: 100px;\r\n  text-align: center;\r\n  transition: 1s;\r\n  z-index: 90;\n}\n.container .card:hover .contentBx {\r\n  height: 210px;\n}\n.container .card .contentBx h2 {\r\n  position: relative;\r\n  font-weight: 600;\r\n  letter-spacing: 1px;\r\n  color: #fff;\n}\n.container .card .contentBx .size,\r\n.container .card .contentBx .color {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 8px 20px;\r\n  transition: 0.5s;\r\n  opacity: 0;\r\n  visibility: hidden;\n}\n.container .card:hover .contentBx .size {\r\n  opacity: 1;\r\n  visibility: visible;\r\n  transition-delay: 0.5s;\n}\n.container .card:hover .contentBx .color {\r\n  opacity: 1;\r\n  visibility: visible;\r\n  transition-delay: 0.6s;\n}\n.container .card .contentBx .size h3,\r\n.container .card .contentBx .color h3 {\r\n  color: white;\r\n  font-weight: 300;\r\n  font-size: 14px;\r\n  text-transform: uppercase;\r\n  letter-spacing: 2px;\r\n  margin-right: 10px;\n}\n.container .card .contentBx .size span {\r\n  width: 26px;\r\n  height: 26px;\r\n  text-align: center;\r\n  line-height: 26px;\r\n  font-size: 14px;\r\n  display: inline-block;\r\n  color: #111;\r\n  background: #fff;\r\n  margin: 0 5px;\r\n  transition: 0.5s;\r\n  color: #111;\r\n  border-radius: 4px;\r\n  cursor: pointer;\n}\n.container .card .contentBx .size span:hover {\r\n  /* other bug */\r\n  background: #b90000;\n}\n.container .card .contentBx .color span {\r\n  width: 20px;\r\n  height: 20px;\r\n  background: #ff0;\r\n  border-radius: 50%;\r\n  margin: 0 5px;\r\n  cursor: pointer;\n}\n.container .card .contentBx .color span:nth-child(2) {\r\n  background: #1bbfe9;\n}\n.container .card .contentBx .color span:nth-child(3) {\r\n  background: #1b2fe9;\n}\n.container .card .contentBx .color span:nth-child(4) {\r\n  background: #080481;\n}\n.container .card .contentBx a {\r\n  display: inline-block;\r\n  padding: 10px 20px;\r\n  background: #fff;\r\n  border-radius: 4px;\r\n  margin-top: 10px;\r\n  text-decoration: none;\r\n  font-weight: 600;\r\n  color: #111;\r\n  opacity: 0;\r\n  transform: translateY(50px);\r\n  transition: 0.5s;\n}\n.container .card:hover .contentBx a {\r\n  opacity: 1;\r\n  transform: translateY(0px);\r\n  transition-delay: 0.7s;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -920,17 +649,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
+/* harmony import */ var _Index_vue_vue_type_template_id_2747daff___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=2747daff& */ "./resources/js/pages/keranjang/Index.vue?vue&type=template&id=2747daff&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 var script = {}
 
 
 /* normalize component */
 ;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
   script,
-  render,
-  staticRenderFns,
+  _Index_vue_vue_type_template_id_2747daff___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Index_vue_vue_type_template_id_2747daff___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -938,6 +668,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/pages/keranjang/Index.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
@@ -1019,6 +751,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_9329f6aa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_9329f6aa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=9329f6aa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/home/Index.vue?vue&type=template&id=9329f6aa&");
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/keranjang/Index.vue?vue&type=template&id=2747daff&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/pages/keranjang/Index.vue?vue&type=template&id=2747daff& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_2747daff___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_2747daff___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_2747daff___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=2747daff& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/keranjang/Index.vue?vue&type=template&id=2747daff&");
 
 
 /***/ }),
@@ -1187,7 +936,230 @@ var render = function () {
       1
     ),
     _vm._v(" "),
-    _vm._m(3),
+    _c("div", { staticClass: "container margin_30_20" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "aside",
+          { staticClass: "col-lg-3", attrs: { id: "sidebar_fixed" } },
+          [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "filter_col" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c("div", { staticClass: "filter_type" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "collapse show", attrs: { id: "filter_1" } },
+                  [
+                    _c("ul", [
+                      _c("li", [
+                        _c("label", { staticClass: "container_radio" }, [
+                          _vm._v("Reccomended\r\n                      "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.filter.sort,
+                                expression: "filter.sort",
+                              },
+                            ],
+                            attrs: {
+                              type: "radio",
+                              value: "1",
+                              name: "filter_sort",
+                            },
+                            domProps: {
+                              checked: _vm.filter.sort == "1",
+                              checked: _vm._q(_vm.filter.sort, "1"),
+                            },
+                            on: {
+                              change: function ($event) {
+                                return _vm.$set(_vm.filter, "sort", "1")
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "checkmark" }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("label", { staticClass: "container_radio" }, [
+                          _vm._v(
+                            "Price: low to high\r\n                      "
+                          ),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.filter.sort,
+                                expression: "filter.sort",
+                              },
+                            ],
+                            attrs: {
+                              type: "radio",
+                              name: "filter_sort",
+                              value: "2",
+                            },
+                            domProps: {
+                              checked: _vm.filter.sort == "2",
+                              checked: _vm._q(_vm.filter.sort, "2"),
+                            },
+                            on: {
+                              change: function ($event) {
+                                return _vm.$set(_vm.filter, "sort", "2")
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "checkmark" }),
+                        ]),
+                      ]),
+                    ]),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "filter_type last" }, [
+                _c("h4", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "closed",
+                      attrs: { href: "#filter_2", "data-toggle": "collapse" },
+                    },
+                    [
+                      _vm._v("Tipe Makanan "),
+                      _vm.filter.type.length > 0
+                        ? _c("small", [
+                            _vm._v(
+                              "(" +
+                                _vm._s(_vm.filter.type.length) +
+                                " terpilih)"
+                            ),
+                          ])
+                        : _vm._e(),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "collapse", attrs: { id: "filter_2" } },
+                  [
+                    _c(
+                      "ul",
+                      _vm._l(_vm.typeMenu, function (data) {
+                        return _c("li", [
+                          _c("label", { staticClass: "container_check" }, [
+                            _vm._v(_vm._s(data.nm_type) + " "),
+                            _c("small", [_vm._v(_vm._s(data.menu_count))]),
+                            _vm._v(" "),
+                            _c("input", {
+                              attrs: { type: "checkbox" },
+                              domProps: { value: data.id },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.typemenu(data.id)
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "checkmark" }),
+                          ]),
+                        ])
+                      }),
+                      0
+                    ),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn_1 outline full-width",
+                    attrs: { href: "javascript:void(0)" },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.index()
+                      },
+                    },
+                  },
+                  [_vm._v("Filter")]
+                ),
+              ]),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-9" }, [
+          _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.data_menu, function (data) {
+              return _c(
+                "div",
+                { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" },
+                [
+                  _c("div", { staticClass: "strip" }, [
+                    _c("figure", [
+                      _c("img", {
+                        staticClass: "img-fluid lazy",
+                        attrs: {
+                          src: "img/lazy-placeholder.png",
+                          "data-src": "img/location_2.jpg",
+                          alt: "",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "strip_info",
+                          attrs: { href: "detail-restaurant.html" },
+                        },
+                        [
+                          _c("small", [
+                            _vm._v(_vm._s(data.type.nm_type) + "s"),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "item_title" }, [
+                            _c("h3", [_vm._v(_vm._s(data.nama))]),
+                            _vm._v(" "),
+                            _c("small", [
+                              _vm._v(
+                                "Rp. " +
+                                  _vm._s(
+                                    String(data.harga).replaceAll(
+                                      /\B(?=(\d{3})+(?!\d))/g,
+                                      "."
+                                    )
+                                  )
+                              ),
+                            ]),
+                          ]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(6, true),
+                  ]),
+                ]
+              )
+            }),
+            0
+          ),
+        ]),
+      ]),
+    ]),
   ])
 }
 var staticRenderFns = [
@@ -1211,75 +1183,6 @@ var staticRenderFns = [
                 _c("p", [
                   _vm._v("Cafe yang menyediakan self order dari meja anda"),
                 ]),
-                _vm._v(" "),
-                _c(
-                  "form",
-                  {
-                    attrs: {
-                      method: "post",
-                      action: "grid-listing-filterscol.html",
-                    },
-                  },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "row no-gutters custom-search-input" },
-                      [
-                        _c("div", { staticClass: "col-lg-10" }, [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("input", {
-                              staticClass:
-                                "form-control no_border_r pac-target-input",
-                              attrs: {
-                                type: "text",
-                                id: "autocomplete",
-                                placeholder: "Address, neighborhood...",
-                                autocomplete: "off",
-                              },
-                            }),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-2" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn_1 gradient",
-                              attrs: { type: "submit" },
-                            },
-                            [_vm._v("Search")]
-                          ),
-                        ]),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "search_trends" }, [
-                      _c("h5", [_vm._v("Trending:")]),
-                      _vm._v(" "),
-                      _c("ul", [
-                        _c("li", [
-                          _c("a", { attrs: { href: "#0" } }, [_vm._v("Sushi")]),
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _c("a", { attrs: { href: "#0" } }, [
-                            _vm._v("Burgher"),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _c("a", { attrs: { href: "#0" } }, [
-                            _vm._v("Chinese"),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _c("a", { attrs: { href: "#0" } }, [_vm._v("Pizza")]),
-                        ]),
-                      ]),
-                    ]),
-                  ]
-                ),
               ]),
             ]
           ),
@@ -1299,7 +1202,9 @@ var staticRenderFns = [
       _c("h2", [_vm._v("Menu Favorit")]),
       _vm._v(" "),
       _c("p", { staticClass: "text-dark" }, [
-        _vm._v("Menu yang sering di beli oleh pelanggan cafe kami"),
+        _vm._v(
+          "\r\n          Menu yang sering di beli oleh pelanggan cafe kami\r\n        "
+        ),
       ]),
     ])
   },
@@ -1308,12 +1213,43 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "main_title center mt-3" }, [
-      _c("span", [_c("em")]),
+      _c("span", [_c("hr")]),
       _vm._v(" "),
       _c("h2", [_vm._v("Pilihan Menu")]),
       _vm._v(" "),
       _c("p", { staticClass: "text-dark" }, [
-        _vm._v("Inilah pilihan menu terbaik yang ada di cafe kami"),
+        _vm._v(
+          "\r\n          Inilah pilihan menu terbaik yang ada di cafe kami\r\n        "
+        ),
+      ]),
+      _vm._v(" "),
+      _c("span", [_c("em")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "open_filters btn_filters",
+        attrs: { href: "javascript:void(0)" },
+      },
+      [
+        _c("i", { staticClass: "icon_adjust-vert" }),
+        _c("span", [_vm._v("Filters")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "inner_bt clearfix" }, [
+      _vm._v("\r\n              Filters"),
+      _c("a", { staticClass: "open_filters", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "icon_close" }),
       ]),
     ])
   },
@@ -1321,1004 +1257,422 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container margin_30_20" }, [
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "aside",
-          { staticClass: "col-lg-3", attrs: { id: "sidebar_fixed" } },
-          [
-            _c("div", { staticClass: "type_delivery" }, [
-              _c("ul", { staticClass: "clearfix" }, [
-                _c("li", [
-                  _c("label", { staticClass: "container_radio" }, [
-                    _vm._v("Delivery\r\n\t\t\t\t\t\t            "),
-                    _c("input", {
-                      attrs: {
-                        type: "radio",
-                        name: "type_d",
-                        checked: "checked",
-                      },
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "checkmark" }),
+    return _c("h4", [
+      _c(
+        "a",
+        {
+          staticClass: "opened",
+          attrs: { href: "#filter_1", "data-toggle": "collapse" },
+        },
+        [_vm._v("Sort")]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", [
+      _c("li", [
+        _c("span", { staticClass: "take no" }, [_vm._v("Takeaway")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "deliv yes" }, [_vm._v("Delivery")]),
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c("div", { staticClass: "score" }, [_c("strong", [_vm._v("9.5")])]),
+      ]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/keranjang/Index.vue?vue&type=template&id=2747daff&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/keranjang/Index.vue?vue&type=template&id=2747daff& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("main", { staticClass: "bg_gray" }, [
+      _c(
+        "div",
+        {
+          staticClass: "container margin_60_20",
+          staticStyle: { "padding-top": "200px" },
+        },
+        [
+          _c("div", { staticClass: "row justify-content-center" }, [
+            _c("div", { staticClass: "col-xl-6 col-lg-8" }, [
+              _c("div", { staticClass: "box_order_form" }, [
+                _c("div", { staticClass: "head" }, [
+                  _c("div", { staticClass: "title" }, [
+                    _c("h3", [_vm._v("Personal Details")]),
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("li", [
-                  _c("label", { staticClass: "container_radio" }, [
-                    _vm._v("Take away\r\n\t\t\t\t\t\t            "),
-                    _c("input", { attrs: { type: "radio", name: "type_d" } }),
+                _c("div", { staticClass: "main" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("First and Last Name")]),
                     _vm._v(" "),
-                    _c("span", { staticClass: "checkmark" }),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { placeholder: "First and Last Name" },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Email Address")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { placeholder: "Email Address" },
+                        }),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Phone")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { placeholder: "Phone" },
+                        }),
+                      ]),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Full Address")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { placeholder: "Full Address" },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("City")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { placeholder: "City" },
+                        }),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Postal Code")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { placeholder: "0123" },
+                        }),
+                      ]),
+                    ]),
+                  ]),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box_order_form" }, [
+                _c("div", { staticClass: "head" }, [
+                  _c("div", { staticClass: "title" }, [
+                    _c("h3", [_vm._v("Payment Method")]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "main" }, [
+                  _c("div", { staticClass: "payment_select" }, [
+                    _c("label", { staticClass: "container_radio" }, [
+                      _vm._v("Credit Card\r\n\t\t\t\t\t                "),
+                      _c("input", {
+                        attrs: {
+                          type: "radio",
+                          value: "",
+                          checked: "",
+                          name: "payment_method",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "checkmark" }),
+                    ]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "icon_creditcard" }),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Name on card")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "name_card_order",
+                        name: "name_card_order",
+                        placeholder: "First and last name",
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Card number")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "card_number",
+                        name: "card_number",
+                        placeholder: "Card number",
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("label", [_vm._v("Expiration date")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6 col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                id: "expire_month",
+                                name: "expire_month",
+                                placeholder: "mm",
+                              },
+                            }),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6 col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                id: "expire_year",
+                                name: "expire_year",
+                                placeholder: "yyyy",
+                              },
+                            }),
+                          ]),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6 col-sm-12" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Security code")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-4 col-6" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  id: "ccv",
+                                  name: "ccv",
+                                  placeholder: "CCV",
+                                },
+                              }),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-8 col-6" }, [
+                            _c("img", {
+                              attrs: {
+                                src: "img/icon_ccv.gif",
+                                width: "50",
+                                height: "29",
+                                alt: "ccv",
+                              },
+                            }),
+                            _c("small", [_vm._v("Last 3 digits")]),
+                          ]),
+                        ]),
+                      ]),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "payment_select", attrs: { id: "paypal" } },
+                    [
+                      _c("label", { staticClass: "container_radio" }, [
+                        _vm._v("Pay with Paypal\r\n\t\t\t\t\t                "),
+                        _c("input", {
+                          attrs: {
+                            type: "radio",
+                            value: "",
+                            name: "payment_method",
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "checkmark" }),
+                      ]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "payment_select" }, [
+                    _c("label", { staticClass: "container_radio" }, [
+                      _vm._v("Pay with Cash\r\n\t\t\t\t\t                "),
+                      _c("input", {
+                        attrs: {
+                          type: "radio",
+                          value: "",
+                          name: "payment_method",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "checkmark" }),
+                    ]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "icon_wallet" }),
                   ]),
                 ]),
               ]),
             ]),
             _vm._v(" "),
             _c(
-              "a",
+              "div",
               {
-                staticClass: "open_filters btn_filters",
-                attrs: { href: "#0" },
+                staticClass: "col-xl-4 col-lg-4",
+                attrs: { id: "sidebar_fixed" },
               },
               [
-                _c("i", { staticClass: "icon_adjust-vert" }),
-                _c("span", [_vm._v("Filters")]),
+                _c("div", { staticClass: "box_order" }, [
+                  _c("div", { staticClass: "head" }, [
+                    _c("h3", [_vm._v("Order Summary")]),
+                    _vm._v(" "),
+                    _c("div", [_vm._v("Pizzeria da Alfredo")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "main" }, [
+                    _c("ul", [
+                      _c("li", [
+                        _vm._v("Date"),
+                        _c("span", [_vm._v("Today 23/11/2019")]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _vm._v("Hour"),
+                        _c("span", [_vm._v("08.30pm")]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _vm._v("Type"),
+                        _c("span", [_vm._v("Delivery")]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("ul", { staticClass: "clearfix" }, [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#0" } }, [
+                          _vm._v("1x Enchiladas"),
+                        ]),
+                        _c("span", [_vm._v("$11")]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("a", { attrs: { href: "#0" } }, [
+                          _vm._v("2x Burrito"),
+                        ]),
+                        _c("span", [_vm._v("$14")]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("a", { attrs: { href: "#0" } }, [
+                          _vm._v("1x Chicken"),
+                        ]),
+                        _c("span", [_vm._v("$18")]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("a", { attrs: { href: "#0" } }, [
+                          _vm._v("2x Corona Beer"),
+                        ]),
+                        _c("span", [_vm._v("$9")]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("a", { attrs: { href: "#0" } }, [
+                          _vm._v("2x Cheese Cake"),
+                        ]),
+                        _c("span", [_vm._v("$11")]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("ul", { staticClass: "clearfix" }, [
+                      _c("li", [
+                        _vm._v("Subtotal"),
+                        _c("span", [_vm._v("$56")]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _vm._v("Delivery fee"),
+                        _c("span", [_vm._v("$10")]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "total" }, [
+                        _vm._v("Total"),
+                        _c("span", [_vm._v("$66")]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn_1 gradient full-width mb_5",
+                        attrs: { href: "confirm.html" },
+                      },
+                      [_vm._v("Order Now")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text-center" }, [
+                      _c("small", [
+                        _vm._v("Or Call Us at "),
+                        _c("strong", [_vm._v("0432 48432854")]),
+                      ]),
+                    ]),
+                  ]),
+                ]),
               ]
             ),
-            _vm._v(" "),
-            _c("div", { staticClass: "filter_col" }, [
-              _c("div", { staticClass: "inner_bt clearfix" }, [
-                _vm._v("Filters"),
-                _c("a", { staticClass: "open_filters", attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon_close" }),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "filter_type" }, [
-                _c("h4", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "opened",
-                      attrs: { href: "#filter_1", "data-toggle": "collapse" },
-                    },
-                    [_vm._v("Sort")]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "collapse show", attrs: { id: "filter_1" } },
-                  [
-                    _c("ul", [
-                      _c("li", [
-                        _c("label", { staticClass: "container_radio" }, [
-                          _vm._v("Top Rated\r\n\t\t\t\t\t\t\t\t            "),
-                          _c("input", {
-                            attrs: {
-                              type: "radio",
-                              name: "filter_sort",
-                              checked: "",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_radio" }, [
-                          _vm._v("Reccomended\r\n\t\t\t\t\t\t\t\t            "),
-                          _c("input", {
-                            attrs: { type: "radio", name: "filter_sort" },
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_radio" }, [
-                          _vm._v(
-                            "Price: low to high\r\n\t\t\t\t\t\t\t\t            "
-                          ),
-                          _c("input", {
-                            attrs: { type: "radio", name: "filter_sort" },
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_radio" }, [
-                          _vm._v(
-                            "Up to 15% off\r\n\t\t\t\t\t\t\t\t            "
-                          ),
-                          _c("input", {
-                            attrs: { type: "radio", name: "filter_sort" },
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_radio" }, [
-                          _vm._v("All Offers\r\n\t\t\t\t\t\t\t\t            "),
-                          _c("input", {
-                            attrs: { type: "radio", name: "filter_sort" },
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_radio" }, [
-                          _vm._v("Distance\r\n\t\t\t\t\t\t\t\t            "),
-                          _c("input", {
-                            attrs: { type: "radio", name: "filter_sort" },
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                    ]),
-                  ]
-                ),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "filter_type" }, [
-                _c("h4", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "closed",
-                      attrs: { href: "#filter_2", "data-toggle": "collapse" },
-                    },
-                    [_vm._v("Categories")]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "collapse", attrs: { id: "filter_2" } },
-                  [
-                    _c("ul", [
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Pizza - Italian "),
-                          _c("small", [_vm._v("12")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Japanese - Sushi "),
-                          _c("small", [_vm._v("24")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Burghers "),
-                          _c("small", [_vm._v("23")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Vegetarian "),
-                          _c("small", [_vm._v("11")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Bakery "),
-                          _c("small", [_vm._v("18")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Chinese "),
-                          _c("small", [_vm._v("12")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Mexican "),
-                          _c("small", [_vm._v("15")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                    ]),
-                  ]
-                ),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "filter_type" }, [
-                _c("h4", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "closed",
-                      attrs: { href: "#filter_3", "data-toggle": "collapse" },
-                    },
-                    [_vm._v("Distance")]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "collapse", attrs: { id: "filter_3" } },
-                  [
-                    _c("div", { staticClass: "distance" }, [
-                      _vm._v("Radius around selected destination "),
-                      _c("span"),
-                      _vm._v(" km"),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "add_bottom_25" }, [
-                      _c("input", {
-                        attrs: {
-                          type: "range",
-                          min: "10",
-                          max: "50",
-                          step: "5",
-                          value: "20",
-                          "data-orientation": "horizontal",
-                        },
-                      }),
-                    ]),
-                  ]
-                ),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "filter_type last" }, [
-                _c("h4", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "closed",
-                      attrs: { href: "#filter_4", "data-toggle": "collapse" },
-                    },
-                    [_vm._v("Rating")]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "collapse", attrs: { id: "filter_4" } },
-                  [
-                    _c("ul", [
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Superb 9+ "),
-                          _c("small", [_vm._v("06")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Very Good 8+ "),
-                          _c("small", [_vm._v("12")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Good 7+ "),
-                          _c("small", [_vm._v("17")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("label", { staticClass: "container_check" }, [
-                          _vm._v("Pleasant 6+ "),
-                          _c("small", [_vm._v("43")]),
-                          _vm._v(" "),
-                          _c("input", { attrs: { type: "checkbox" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "checkmark" }),
-                        ]),
-                      ]),
-                    ]),
-                  ]
-                ),
-              ]),
-              _vm._v(" "),
-              _c("p", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn_1 outline full-width",
-                    attrs: { href: "#0" },
-                  },
-                  [_vm._v("Filter")]
-                ),
-              ]),
-            ]),
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-9" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12" }, [
-              _c("h2", { staticClass: "title_small" }, [_vm._v("Top Rated")]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("span", { staticClass: "ribbon off" }, [
-                    _vm._v("15% off"),
-                  ]),
-                  _vm._v(" "),
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_1.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Pizza")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Da Alfredo")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take yes" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv yes" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("8.9")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_2.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Burghers")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Best Burghers")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take no" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv yes" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("9.5")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("span", { staticClass: "ribbon off" }, [
-                    _vm._v("15% off"),
-                  ]),
-                  _vm._v(" "),
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_3.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Vegetarian")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Vego Life")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take yes" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv no" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("7.5")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_4.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Japanese")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Sushi Temple")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take no" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv no" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("9.5")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_5.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Pizza")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Auto Pizza")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take yes" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv no" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("7.0")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_6.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Burghers")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Alliance")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take no" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv yes" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("8.9")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_7.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Chinese")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Alliance")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take no" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv yes" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("8.9")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_8.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Sushi")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Dragon Tower")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take yes" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv no" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("8.9")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_9.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Mexican")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("El Paso Tacos")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take yes" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv yes" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("8.9")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_10.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Bakery")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Monnalisa")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take yes" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv yes" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("8.9")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_11.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Mexican")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Guachamole")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("135 Newtownards Road")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take yes" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv yes" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("8.9")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-4 col-lg-6 col-md-6 col-sm-6" }, [
-              _c("div", { staticClass: "strip" }, [
-                _c("figure", [
-                  _c("img", {
-                    staticClass: "img-fluid lazy",
-                    attrs: {
-                      src: "img/lazy-placeholder.png",
-                      "data-src": "img/location_12.jpg",
-                      alt: "",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "strip_info",
-                      attrs: { href: "detail-restaurant.html" },
-                    },
-                    [
-                      _c("small", [_vm._v("Chinese")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item_title" }, [
-                        _c("h3", [_vm._v("Pechino Express")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("27 Old Gloucester St")]),
-                      ]),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [
-                    _c("span", { staticClass: "take no" }, [
-                      _vm._v("Takeaway"),
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "deliv yes" }, [
-                      _vm._v("Delivery"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("div", { staticClass: "score" }, [
-                      _c("strong", [_vm._v("8.9")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
           ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "pagination_fg" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("«")]),
-            _vm._v(" "),
-            _c("a", { staticClass: "active", attrs: { href: "#" } }, [
-              _vm._v("1"),
-            ]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [_vm._v("2")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [_vm._v("3")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [_vm._v("4")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [_vm._v("5")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [_vm._v("»")]),
-          ]),
-        ]),
-      ]),
+        ]
+      ),
     ])
   },
 ]

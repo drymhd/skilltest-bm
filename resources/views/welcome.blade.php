@@ -2,6 +2,7 @@
     <title>Loading.....</title>
     <meta name="title" content="hemm">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <script type="text/javascript"
       src="https://app.sandbox.midtrans.com/snap/snap.js"
       data-client-key="SB-Mid-client-ixD9roXOyN5oz0fu"></script>

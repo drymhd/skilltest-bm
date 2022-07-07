@@ -26,8 +26,10 @@
         </div>
     </header>
     <router-view></router-view>
+    
     </main>
 </template>
+
 
 <script>
 export default {
@@ -48,52 +50,32 @@ export default {
 	  }
 	});
 	
-	// $('.filters ul li').click(function(){
-    //     $('.filters ul li').removeClass('active');
-    //     $(this).addClass('active');
-          
-    //       var data = $(this).attr('data-filter');
-    //       $grid.isotope({
-    //         filter: data
-    //       })
-    //     });
-
-    //     var $grid = $(".grid").isotope({
-    //       	itemSelector: ".all",
-    //       	percentPosition: true,
-    //       	masonry: {
-    //         columnWidth: ".all"
-    //     }
-    // })
-
-	// var width = $(window).width();
-	// 	$(window).resize(function() {
-	// 		if (width > 992 && $(window).width() < 992) {
-	// 			location.reload();
-	// 		}
-	// 		else if (width < 992 && $(window).width() > 992) {
-	// 			location.reload();
-	// 		}
-	// })
+	if($('.menu-trigger').length){
+		$(".menu-trigger").on('click', function() {	
+			$(this).toggleClass('active');
+			$('.header-area .nav').slideToggle(200);
+		});
+	}
 
 
 
-	// $(document).on("click", ".naccs .menu div", function() {
-	// 	var numberIndex = $(this).index();
+
+	$(document).on("click", ".naccs .menu div", function() {
+		var numberIndex = $(this).index();
 	
-	// 	if (!$(this).is("active")) {
-	// 		$(".naccs .menu div").removeClass("active");
-	// 		$(".naccs ul li").removeClass("active");
+		if (!$(this).is("active")) {
+			$(".naccs .menu div").removeClass("active");
+			$(".naccs ul li").removeClass("active");
 	
-	// 		$(this).addClass("active");
-	// 		$(".naccs ul").find("li:eq(" + numberIndex + ")").addClass("active");
+			$(this).addClass("active");
+			$(".naccs ul").find("li:eq(" + numberIndex + ")").addClass("active");
 	
-	// 		var listItemHeight = $(".naccs ul")
-	// 			.find("li:eq(" + numberIndex + ")")
-	// 			.innerHeight();
-	// 		$(".naccs ul").height(listItemHeight + "px");
-	// 	}
-	// });
+			var listItemHeight = $(".naccs ul")
+				.find("li:eq(" + numberIndex + ")")
+				.innerHeight();
+			$(".naccs ul").height(listItemHeight + "px");
+		}
+	});
     }
 }
 </script>

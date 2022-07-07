@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TypeHalamanMeja extends Model
 {
     use HasFactory;
+    
+    protected $fillable = ['nm_halaman_meja'];
 }

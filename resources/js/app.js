@@ -9,6 +9,7 @@ import select2 from 'select2';
 import Swal from 'sweetalert2';
 import VueRouter from 'vue-router';
 import './plugins/particles.js';
+import './plugins/common_scripts.js';
 import axios from 'axios';
 import Lodash from 'lodash';
 
@@ -24,6 +25,8 @@ const particlesJS = window.particlesJS;
 
 import '../css/app.css';
 import '../css/listing.css';
+import '../css/util.css';
+import '../css/detail.css';
 
 // definisikan package
 

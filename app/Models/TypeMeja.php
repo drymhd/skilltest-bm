@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class TypeMeja extends Model
 {
     use HasFactory;
+    protected $fillable = ['nm_type_meja'];
 }

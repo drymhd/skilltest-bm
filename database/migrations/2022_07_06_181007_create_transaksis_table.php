@@ -19,6 +19,7 @@ class CreateTransaksisTable extends Migration
             $table->string('kd_transaksi')->unique();
             
             $table->string('nama_pembeli');
+            $table->string('foto');
             $table->date('tgl_transaksi');
 
             $table->enum('type_transaksi', ['tunai', 'non tunai']);
