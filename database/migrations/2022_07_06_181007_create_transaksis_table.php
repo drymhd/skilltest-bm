@@ -19,11 +19,16 @@ class CreateTransaksisTable extends Migration
             $table->string('kd_transaksi')->unique();
             
             $table->string('nama_pembeli');
-            $table->string('foto');
             $table->date('tgl_transaksi');
+            $table->string('phone')->nullable();
+            $table->string('token')->nullable();
+            $table->string('c_pelanggan');
+
+            $table->unsignedBigInteger('meja_id');
+            $table->foreign('meja_id')->references('id')->on('mejas')->onDelete('cascade');
 
             $table->enum('type_transaksi', ['tunai', 'non tunai']);
-            $table->string('alamat')->nullable();
+            $table->string('alamat')->nullable()->nullable();
 
             $table->enum('status', [0,1])->default(0); //0 diproses 1 selesai
 

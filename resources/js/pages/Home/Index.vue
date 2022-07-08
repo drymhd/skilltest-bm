@@ -24,6 +24,7 @@
       </div>
 
       <carousel
+        v-if="carousel"
         :autoplay="true"
         :responsive="{
           200: { items: 1, nav: false },
@@ -33,88 +34,23 @@
           1500: { items: 4 },
         }"
       >
-        <div class="card">
+        <div class="card" v-for="data in favorit">
           <div class="imgBx">
             <img
-              src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png"
-              alt="nike-air-shoe"
+              :src="data.foto_dir"
+              :alt="data.foto_dir"
             />
           </div>
 
           <div class="contentBx">
-            <h2>Nike Shoes</h2>
 
             <div class="size">
-              <h3>Size :</h3>
-              <span>7</span>
-              <span>8</span>
-              <span>9</span>
-              <span>10</span>
+              <h2>{{data.nama}}</h2>
             </div>
-
-            <div class="color">
-              <h3>Color :</h3>
-              <span></span>
-              <span></span>
-              <span></span>
+              <div class="size">
+                
+                <h3>{{data.transaksi_count}}x dibeli</h3>
             </div>
-            <a href="#">Buy Now</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="imgBx">
-            <img
-              src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png"
-              alt="nike-air-shoe"
-            />
-          </div>
-
-          <div class="contentBx">
-            <h2>Nike Shoes</h2>
-
-            <div class="size">
-              <h3>Size :</h3>
-              <span>7</span>
-              <span>8</span>
-              <span>9</span>
-              <span>10</span>
-            </div>
-
-            <div class="color">
-              <h3>Color :</h3>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <a href="#">Buy Now</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="imgBx">
-            <img
-              src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png"
-              alt="nike-air-shoe"
-            />
-          </div>
-
-          <div class="contentBx">
-            <h2>Nike Shoes</h2>
-
-            <div class="size">
-              <h3>Size :</h3>
-              <span>7</span>
-              <span>8</span>
-              <span>9</span>
-              <span>10</span>
-            </div>
-
-            <div class="color">
-              <h3>Color :</h3>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <a href="#">Buy Now</a>
           </div>
         </div>
       </carousel>
@@ -218,7 +154,7 @@
               <div class="strip">
                 <figure>
                   <img
-                    src="img/lazy-placeholder.png"
+                    :src="data.foto_dir"
                     data-src="img/location_2.jpg"
                     class="img-fluid lazy"
                     alt=""
@@ -233,11 +169,10 @@
                 </figure>
                 <ul>
                   <li>
-                    <span class="take no">Takeaway</span>
-                    <span class="deliv yes">Delivery</span>
+                    <span :class="data.status == 1 ? 'take': 'take no'">{{data.status == 1 ? 'tersedia': 'tidak tersedia'}}</span>
                   </li>
                   <li>
-                    <div class="score"><strong>9.5</strong></div>
+                    <a href="#0" class="btn_1 outline" v-if="data.status == 1" @click="keranjang(data.id)">masukan keranjang</a>
                   </li>
                 </ul>
               </div>
@@ -254,7 +189,7 @@
   </main>
 </template>
 
-<style>
+<style scoped>
 .owl-theme .owl-nav [class*="owl-"] {
   border-radius: 50%;
 }
@@ -279,7 +214,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #68c444;
+  background: #68c44459;
   clip-path: circle(150px at 80% 20%);
   transition: 0.5s ease-in-out;
 }
@@ -448,8 +383,10 @@ export default {
   components: { carousel },
   data() {
     return {
+      carousel: false,
       transaksi: null,
       typeMenu: [],
+      favorit: [],
       filter: {
         sort: 1,
         type: [],
@@ -487,6 +424,21 @@ export default {
           });
         });
     },
+	keranjang(id){
+		axios.get("home/keranjang/"+id).then((res) => {
+			Swal.fire({
+				 icon: "success",
+            title: "Berhasil",
+            text: "Berhasil menambah ke keranjang",
+			})
+		}).catch((err) => {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oppss..',
+				text: err.response.data.data
+			})
+		})
+	},
 	typemenu(id){
 		var app = this;
 		var index = app.filter.type.indexOf(id);
@@ -512,6 +464,22 @@ export default {
           });
         });
     },
+    fav() {
+      var app = this;
+      axios
+        .get("home/favorit")
+        .then((res) => {
+          app.favorit = res.data.data;
+          app.carousel = true;
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Sesuatu error Terjadi!",
+          });
+        });
+    },
   },
   mounted() {
     var app = this;
@@ -519,6 +487,7 @@ export default {
     app.owl();
 	app.getTypeMenu();
     app.index();
+    app.fav();
 
     //    var payButton = document.getElementById('pay-button');
     // payButton.addEventListener('click', function () {

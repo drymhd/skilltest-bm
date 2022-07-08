@@ -18,6 +18,7 @@ class CreateMenusTable extends Migration
 
             $table->string('nama');
             $table->bigInteger('harga');
+            $table->string('foto')->nullable();
             
             $table->enum('status', [0,1])->default(1); //1 untuk tersedia 0 untuk tidak tersedia
 

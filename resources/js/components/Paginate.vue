@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 	export default {
 		props: ['id', 'url', 'columns', 'classx', 'callback', 'post', 'useCard', 'classHead'],
 		data() {
@@ -116,7 +117,7 @@
 					// });
 				}
 				app.loading = true;
-				app.$http({
+				axios({
 		            url: url,
 		            method: 'POST',
 		            data: {search: app.text, per: app.per, ...app.post}

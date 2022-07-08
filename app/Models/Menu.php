@@ -11,6 +11,15 @@ class Menu extends Model
 
     protected $fillable = ['nama', 'harga', 'status', 'type_id'];
 
+    protected $appends = [
+        'foto_dir'
+    ];
+
+    function getFotoDirAttribute(){
+        return asset('images/menu/'.$this->foto);
+    }
+
+
     public function type()
     {
         return $this->belongsTo(TypeMenu::class, 'type_id', 'id');
@@ -18,7 +27,9 @@ class Menu extends Model
 
     public function Transaksi()
     {
-        return $this->hasMany(Transaksi::class, 'menu_id', 'id');
+        return $this->belongsToMany(Transaksi::class, 'transaksi_menus', 'menu_id', 'transaksi_id');
     }
+
+    
     
 }

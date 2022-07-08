@@ -28,6 +28,15 @@ const routes = [{
             title: 'transaksi'
         }
     },
+    {
+        name: 'kasir',
+        path: '/kasir',
+        component: () =>
+            import ( /* webpackChunkName: "main" */ './pages/kasir/Index.vue'),
+        meta: {
+            title: 'kasir'
+        }
+    },
 
 ];
 

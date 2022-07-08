@@ -1,6 +1,6 @@
 <template>
     <main>
-         <header class="header-area header-sticky">
+         <header class="header-area header-sticky" v-if="$route.name != 'kasir'">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -32,8 +32,19 @@
 
 
 <script>
+import axios from 'axios';
 export default {
+    methods: {
+        cookie(){
+            axios.get('cookie').then((res) => {
+                console.log(res.data);
+            });
+        }
+    },  
     mounted(){
+
+        var app = this;
+        app.cookie();
         
         	$(window).scroll(function() {
 	  var scroll = $(window).scrollTop();

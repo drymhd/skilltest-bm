@@ -5266,6 +5266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -5345,6 +5347,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['id', 'url', 'columns', 'classx', 'callback', 'post', 'useCard', 'classHead'],
   data: function data() {
@@ -5397,7 +5400,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       app.loading = true;
-      app.$http({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         url: url,
         method: 'POST',
         data: _objectSpread({
@@ -5497,6 +5500,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -5530,8 +5535,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  methods: {
+    cookie: function cookie() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('cookie').then(function (res) {
+        console.log(res.data);
+      });
+    }
+  },
   mounted: function mounted() {
+    var app = this;
+    app.cookie();
     $(window).scroll(function () {
       var scroll = $(window).scrollTop();
       var box = 365;
@@ -24652,6 +24667,15 @@ var routes = [{
   },
   meta: {
     title: 'transaksi'
+  }
+}, {
+  name: 'kasir',
+  path: '/kasir',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | main */ "main").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/kasir/Index.vue */ "./resources/js/pages/kasir/Index.vue"));
+  },
+  meta: {
+    title: 'kasir'
   }
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -72402,68 +72426,72 @@ var render = function () {
   return _c(
     "main",
     [
-      _c("header", { staticClass: "header-area header-sticky" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12" }, [
-              _c(
-                "nav",
-                { staticClass: "main-nav" },
-                [
+      _vm.$route.name != "kasir"
+        ? _c("header", { staticClass: "header-area header-sticky" }, [
+            _c("div", { staticClass: "container" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
                   _c(
-                    "router-link",
-                    { staticClass: "logo", attrs: { to: "/" } },
+                    "nav",
+                    { staticClass: "main-nav" },
                     [
-                      _c("img", {
-                        attrs: { src: "/images/logo.png", alt: "logo" },
-                      }),
-                    ]
+                      _c(
+                        "router-link",
+                        { staticClass: "logo", attrs: { to: "/" } },
+                        [
+                          _c("img", {
+                            attrs: { src: "/images/logo.png", alt: "logo" },
+                          }),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "nav" }, [
+                        _c(
+                          "li",
+                          [
+                            _c(
+                              "router-link",
+                              { attrs: { to: { name: "home" } } },
+                              [_vm._v("Home")]
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          [
+                            _c(
+                              "router-link",
+                              { attrs: { to: { name: "keranjang" } } },
+                              [_vm._v("Keranjang")]
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          [
+                            _c(
+                              "router-link",
+                              { attrs: { to: { name: "transaksi" } } },
+                              [_vm._v("transaksi")]
+                            ),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(0),
+                    ],
+                    1
                   ),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "nav" }, [
-                    _c(
-                      "li",
-                      [
-                        _c("router-link", { attrs: { to: { name: "home" } } }, [
-                          _vm._v("Home"),
-                        ]),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "keranjang" } } },
-                          [_vm._v("Keranjang")]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "transaksi" } } },
-                          [_vm._v("transaksi")]
-                        ),
-                      ],
-                      1
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0),
-                ],
-                1
-              ),
+                ]),
+              ]),
             ]),
-          ]),
-        ]),
-      ]),
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("router-view"),
     ],

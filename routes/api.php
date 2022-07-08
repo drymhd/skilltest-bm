@@ -17,10 +17,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function () {
-    Route::get('test', [TransaksiController::class, 'index']);
+    Route::get('cookie', [HomeController::class, 'Cookie']);
     Route::prefix('home')->group(function(){
         Route::post('index', [HomeController::class, 'index']);
+        Route::get('favorit', [HomeController::class, 'favorit']);
         Route::get('getTypeMenu', [HomeController::class, 'getTypeMenu']);
+        Route::get('keranjang/{id}', [HomeController::class, 'keranjang']);
+
+    });
+
+    Route::prefix('keranjang')->group(function(){
+        Route::get('index', [HomeController::class, 'getKeranjang']);
+        Route::post('hapus', [HomeController::class, 'hapus']);
+        Route::get('getMeja', [HomeController::class, 'getMeja']);
+        Route::post('transaksi', [TransaksiController::class, 'transaksi']);
+    });
+
+    Route::prefix('transaksi')->group(function(){
+        Route::post('index', [TransaksiController::class, 'index']);
+        Route::post('done', [TransaksiController::class, 'done']);
+        Route::post('kasirIndex', [TransaksiController::class, 'kasirIndex']);
+        Route::post('kasirUpdate', [TransaksiController::class, 'kasirUpdate']);
     });
     
 });
