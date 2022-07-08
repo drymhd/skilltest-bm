@@ -392,6 +392,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -797,6 +799,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -805,6 +811,8 @@ __webpack_require__.r(__webpack_exports__);
       dataKeranjang: [],
       meja: [],
       form: {
+        alamat: "",
+        phone: "",
         type: 'tunai'
       }
     };
@@ -1498,10 +1506,11 @@ var render = function () {
               "carousel",
               {
                 attrs: {
+                  nav: false,
                   autoplay: true,
                   responsive: {
-                    200: { items: 1, nav: false },
-                    600: { items: 1, nav: false },
+                    200: { items: 1 },
+                    600: { items: 1 },
                     800: { items: 2 },
                     1200: { items: 3 },
                     1500: { items: 4 },
@@ -1988,94 +1997,99 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.dataKeranjang, function (data) {
-                      return _c("tr", [
-                        _c(
-                          "td",
-                          { staticClass: "d-md-flex align-items-center" },
-                          [
-                            _vm._m(1, true),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "flex-md-column" }, [
-                              _c("h4", [_vm._v(_vm._s(data.nama))]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "\r\n                          " +
-                                    _vm._s(data.harga) +
-                                    "\r\n                        "
-                                ),
-                              ]),
-                            ]),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: data.qty,
-                                  expression: "data.qty",
-                                },
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { width: "70px" },
-                              attrs: {
-                                type: "number",
-                                oninput:
-                                  "this.value = this.value.replace(/\\D/g, '')",
-                              },
-                              domProps: { value: data.qty },
-                              on: {
-                                input: [
-                                  function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(data, "qty", $event.target.value)
-                                  },
-                                  function ($event) {
-                                    return _vm.inputchange($event, data.id)
-                                  },
-                                ],
-                              },
-                            }),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "options" }, [
+                    [
+                      _vm._l(_vm.dataKeranjang, function (data) {
+                        return _c("tr", [
                           _c(
-                            "div",
-                            { staticClass: "dropdown dropdown-options" },
+                            "td",
+                            { staticClass: "d-md-flex align-items-center" },
                             [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "dropdown-toggle",
-                                  attrs: { href: "javascript:void(0)" },
-                                  on: {
-                                    click: function ($event) {
-                                      $event.preventDefault()
-                                      return _vm.hapus(data.id)
-                                    },
-                                  },
-                                },
-                                [_c("i", { staticClass: "icon_trash_alt" })]
-                              ),
+                              _vm._m(1, true),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "flex-md-column" }, [
+                                _c("h4", [_vm._v(_vm._s(data.nama))]),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\r\n                          " +
+                                      _vm._s(data.harga) +
+                                      "\r\n                        "
+                                  ),
+                                ]),
+                              ]),
                             ]
                           ),
-                        ]),
-                      ])
-                    }),
-                    0
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: data.qty,
+                                    expression: "data.qty",
+                                  },
+                                ],
+                                staticClass: "form-control",
+                                staticStyle: { width: "70px" },
+                                attrs: {
+                                  type: "number",
+                                  oninput:
+                                    "this.value = this.value.replace(/\\D/g, '')",
+                                },
+                                domProps: { value: data.qty },
+                                on: {
+                                  input: [
+                                    function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(data, "qty", $event.target.value)
+                                    },
+                                    function ($event) {
+                                      return _vm.inputchange($event, data.id)
+                                    },
+                                  ],
+                                },
+                              }),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "options" }, [
+                            _c(
+                              "div",
+                              { staticClass: "dropdown dropdown-options" },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "dropdown-toggle",
+                                    attrs: { href: "javascript:void(0)" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.hapus(data.id)
+                                      },
+                                    },
+                                  },
+                                  [_c("i", { staticClass: "icon_trash_alt" })]
+                                ),
+                              ]
+                            ),
+                          ]),
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _vm.dataKeranjang.length == 0
+                        ? _c("tr", [_vm._m(2)])
+                        : _vm._e(),
+                    ],
+                    2
                   ),
                 ]),
               ]),
             ]),
-            _vm._v("\r\n          ``\r\n          "),
           ]),
           _vm._v(" "),
           _c(
@@ -2083,7 +2097,7 @@ var render = function () {
             { staticClass: "col-lg-4", attrs: { id: "sidebar_fixed" } },
             [
               _c("div", { staticClass: "box_order mobile_fixed" }, [
-                _vm._m(2),
+                _vm._m(3),
                 _vm._v(" "),
                 _c(
                   "form",
@@ -2236,7 +2250,7 @@ var render = function () {
                               "form-group col-md-12 col-sm-12 col-lg-12",
                           },
                           [
-                            _vm._m(3),
+                            _vm._m(4),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -2277,7 +2291,7 @@ var render = function () {
                               "form-group col-md-12 col-sm-12 col-lg-12",
                           },
                           [
-                            _vm._m(4),
+                            _vm._m(5),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -2379,13 +2393,13 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _vm._m(5),
+                      _vm._m(6),
                     ]),
                   ]
                 ),
               ]),
               _vm._v(" "),
-              _vm._m(6),
+              _vm._m(7),
             ]
           ),
         ]),
@@ -2402,9 +2416,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Item")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Price")]),
+        _c("th", [_vm._v("Qty")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Order")]),
+        _c("th", [_vm._v("Aksi")]),
       ]),
     ])
   },
@@ -2433,6 +2447,18 @@ var staticRenderFns = [
           }),
         ]
       ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { colspan: "4" } }, [
+      _c("h4", { staticClass: "text-center" }, [
+        _vm._v(
+          "\r\n                      Tidak ada data\r\n                    "
+        ),
+      ]),
     ])
   },
   function () {

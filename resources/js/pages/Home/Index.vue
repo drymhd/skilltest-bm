@@ -25,10 +25,11 @@
 
       <carousel
         v-if="carousel"
+        :nav="false"
         :autoplay="true"
         :responsive="{
-          200: { items: 1, nav: false },
-          600: { items: 1, nav: false },
+          200: { items: 1,},
+          600: { items: 1, },
           800: { items: 2 },
           1200: { items: 3 },
           1500: { items: 4 },
@@ -206,6 +207,7 @@
   border-radius: 20px;
   overflow: hidden;
 }
+
 
 .container .card:before {
   content: "";

@@ -16,7 +16,7 @@ class HomeController extends Controller
 
     public function favorit()
     {
-        $data = Menu::withCount('Transaksi')->orderBy('transaksi_count', 'desc')->limit(10)->get();
+        $data = Menu::withCount('Transaksi')->orderBy('transaksi_count', 'desc')->limit(5)->get();
         return response()->json(['data' => $data]);
     }
 

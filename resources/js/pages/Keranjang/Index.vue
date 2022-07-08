@@ -10,8 +10,8 @@
                 <thead>
                   <tr>
                     <th>Item</th>
-                    <th>Price</th>
-                    <th>Order</th>
+                    <th>Qty</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,11 +59,15 @@
                       </div>
                     </td>
                   </tr>
+                  <tr v-if="dataKeranjang.length == 0" >
+                    <td colspan="4"><h4 class="text-center">
+                      Tidak ada data
+                    </h4></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </section>
-          ``
           <!-- /section -->
         </div>
         <!-- /col -->
@@ -192,6 +196,8 @@ export default {
       dataKeranjang: [],
       meja: [],
 	  form: {
+    alamat: "",
+    phone: "",
 		type: 'tunai'
 	  }
     };
