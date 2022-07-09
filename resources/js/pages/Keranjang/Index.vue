@@ -23,7 +23,7 @@
                           title="Photo title"
                           data-effect="mfp-zoom-in"
                           ><img
-                            src="img/menu-thumb-placeholder.jpg"
+                            :src="data.foto_dir"
                             data-src="img/menu-thumb-1.jpg"
                             alt="thumb"
                             class="lazy"

@@ -2004,7 +2004,28 @@ var render = function () {
                             "td",
                             { staticClass: "d-md-flex align-items-center" },
                             [
-                              _vm._m(1, true),
+                              _c("figure", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href: "img/menu_item_large_1.jpg",
+                                      title: "Photo title",
+                                      "data-effect": "mfp-zoom-in",
+                                    },
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass: "lazy",
+                                      attrs: {
+                                        src: data.foto_dir,
+                                        "data-src": "img/menu-thumb-1.jpg",
+                                        alt: "thumb",
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "flex-md-column" }, [
                                 _c("h4", [_vm._v(_vm._s(data.nama))]),
@@ -2082,7 +2103,7 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _vm.dataKeranjang.length == 0
-                        ? _c("tr", [_vm._m(2)])
+                        ? _c("tr", [_vm._m(1)])
                         : _vm._e(),
                     ],
                     2
@@ -2097,7 +2118,7 @@ var render = function () {
             { staticClass: "col-lg-4", attrs: { id: "sidebar_fixed" } },
             [
               _c("div", { staticClass: "box_order mobile_fixed" }, [
-                _vm._m(3),
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "form",
@@ -2250,7 +2271,7 @@ var render = function () {
                               "form-group col-md-12 col-sm-12 col-lg-12",
                           },
                           [
-                            _vm._m(4),
+                            _vm._m(3),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -2291,7 +2312,7 @@ var render = function () {
                               "form-group col-md-12 col-sm-12 col-lg-12",
                           },
                           [
-                            _vm._m(5),
+                            _vm._m(4),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -2393,13 +2414,13 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _vm._m(6),
+                      _vm._m(5),
                     ]),
                   ]
                 ),
               ]),
               _vm._v(" "),
-              _vm._m(7),
+              _vm._m(6),
             ]
           ),
         ]),
@@ -2420,33 +2441,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Aksi")]),
       ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("figure", [
-      _c(
-        "a",
-        {
-          attrs: {
-            href: "img/menu_item_large_1.jpg",
-            title: "Photo title",
-            "data-effect": "mfp-zoom-in",
-          },
-        },
-        [
-          _c("img", {
-            staticClass: "lazy",
-            attrs: {
-              src: "img/menu-thumb-placeholder.jpg",
-              "data-src": "img/menu-thumb-1.jpg",
-              alt: "thumb",
-            },
-          }),
-        ]
-      ),
     ])
   },
   function () {
