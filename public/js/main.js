@@ -559,6 +559,9 @@ __webpack_require__.r(__webpack_exports__);
         name: "Tipe pembayaran",
         data: "type_transaksi"
       }, {
+        name: "total",
+        data: "total_harga"
+      }, {
         name: "nomor meja",
         data: "meja.no_meja"
       }, {
@@ -979,6 +982,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: "nama",
         data: "nama_pembeli"
+      }, {
+        name: "total",
+        data: "total_harga"
       }, {
         name: "nomor meja",
         data: "meja.no_meja"

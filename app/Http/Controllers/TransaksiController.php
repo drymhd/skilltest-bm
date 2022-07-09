@@ -35,12 +35,17 @@ class TransaksiController extends Controller
           $id = $request->cookie('id');
 
           // Get User By Search And Per Page
-          $user = Transaksi::with('meja')->where('c_pelanggan', $id)->where(function($q) use ($request) {
+          $user = Transaksi::with('meja', 'menuTransaksi')->where('c_pelanggan', $id)->where(function($q) use ($request) {
               $q->where('kd_transaksi', 'LIKE', '%'.$request->search.'%');
           })->orderBy('id','asc')->paginate($per);
 
           // Add Columns
           $user->map(function($a) {
+            $a->total_harga = 0;
+
+            for ($i=0; $i < count($a->menu); $i++) { 
+              $a->total_harga += $a->menuTransaksi[$i]['harga_menu'] * $a->menuTransaksi[$i]['total_menu'];
+            }
             if($a->status == 0){
               if($a->type_transaksi == 'tunai'){
                 $a->statusT = 'silahkan bayar di kasir';
@@ -70,12 +75,17 @@ class TransaksiController extends Controller
           $id = $request->cookie('id');
 
           // Get User By Search And Per Page
-          $user = Transaksi::with('meja')->where(function($q) use ($request) {
+          $user = Transaksi::with('meja', 'menuTransaksi')->where(function($q) use ($request) {
               $q->where('kd_transaksi', 'LIKE', '%'.$request->search.'%');
           })->orderBy('id','asc')->paginate($per);
 
           // Add Columns
           $user->map(function($a) {
+            $a->total_harga = 0;
+
+            for ($i=0; $i < count($a->menu); $i++) { 
+              $a->total_harga += $a->menuTransaksi[$i]['harga_menu'] * $a->menuTransaksi[$i]['total_menu'];
+            }
             if($a->status == 0){
               if($a->type_transaksi == 'tunai'){
                 $a->statusT = 'silahkan bayar di kasir';

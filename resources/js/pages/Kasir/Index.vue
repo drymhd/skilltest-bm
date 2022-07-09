@@ -28,6 +28,7 @@ export default {
         { name: "kode", data: "kd_transaksi" },
         { name: "nama", data: "nama_pembeli" },
         { name: "Tipe pembayaran", data: "type_transaksi" },
+        { name: "total", data: "total_harga" },
         { name: "nomor meja", data: "meja.no_meja" },
         { name: "status", data: "statusT" },
         { name: "Aksi", data: "action", style: "width: 175px" },
